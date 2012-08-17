@@ -40,7 +40,7 @@ function badoop() {
   else
     # adding a new todo
     # $@ is a string containing all parameters
-    echo "  • $@" >> "$BADOOP"
+    echo "  * $@" >> "$BADOOP"
   fi
 }
 
