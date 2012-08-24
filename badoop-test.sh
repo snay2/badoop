@@ -5,7 +5,7 @@ describe 'badoop: todo list management in bash'
 badoop='./badoop'
 
 set_up_test_file() {
-  TODO=./test_todo.txt
+  export TODO=./test_todo.txt
 }
 
 tear_down_test_file() {
