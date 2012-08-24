@@ -33,18 +33,18 @@ $ badoop
   • badoop Finish blog post about badoop
 ```
 
-badoop can do four things.
+badoop can do six things.
 
 1. `badoop` with no arguments lists all todo items.
 1. `badoop` followed by anything but a `-d` or `-h` will add that as a todo
     item to your todo list.
 1. `badoop -d` deletes any todo items matching the arguments passed in next
+1. `badoop -i` or `--indent` indents any items matching the arguments
+1. `badoop -u` or `--unindent` un-indents any items matching the arguments
 1. `badoop -h` prints out a help message.
 
-It doesn't do anything with priorities or sorting or nesting or tagging or
-logging or anything. If you are wondering if it has a certain feature, the
-answer is no. Frankly, if your todo list is that complicated, you may have too
-many things to do. You should use a different todo app, or do less things.
+The indent/un-indent feature is a crude way to manage priorities or scheduling.
+For example, you can indent items that you want to worry about later.
 
 ### Where The List is Stored
 

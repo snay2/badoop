@@ -41,3 +41,15 @@ it_deletes_todos_matching_arguments() {
   test "$res" = ""
   tear_down_test_file
 }
+
+it_indents_properly() {
+  set_up_test_file
+  echo "REGULAR ITEM" >> "$TODO"
+  echo "INDENTED ITEM" >> "$TODO"
+  badoop -i INDENTED
+  $badoop | grep '^    INDENTED ITEM$'
+  $badoop | grep '^REGULAR ITEM$'
+  badoop -u INDENTED
+  $badoop | grep '^INDENTED ITEM$'
+  tear_down_test_file
+}

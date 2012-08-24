@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # vim:filetype=sh
-if [[ "x$TODO" = x ]]; then
+if [[ "x$TODO" = "x" ]]; then
   BADOOP=~/.todo.txt
 else
   BADOOP="$TODO"
@@ -9,8 +9,10 @@ fi
 
 function badoop_usage() {
   echo "badoop"
-  echo "  -h: Print this help"
+  echo "  -h: print this help"
   echo "  -d: delete any todo items matching remaining arguments"
+  echo "  -i, --indent:  indent any todo items matching remaining arguments"
+  echo "  -u, --unindent: un-indent any todo items matching remaining arguments"
   echo "  with no flags: add the string passed in to the todo list"
   echo "  with no arguments: print out todo list"
 }
@@ -19,8 +21,25 @@ function badoop_usage() {
 function badone() {
   # $@ is all the arguments passed in.
   # not sure what d is. Flag to delete anything that matches?
+
   if [[ -f "$BADOOP" ]]; then
     sed -i -e "/$@/d" "$BADOOP";
+  fi
+}
+
+# Badoop-indent. Indent or un-indent an item
+function badoopindent() {
+  # $1 indicates the indent direction
+  # The rest of $@ has the item search regex
+
+  if [[ -f "$BADOOP" ]]; then
+    if [[ $1 == "i" ]]; then
+      shift
+      sed -i -e "/$@/s/^/    /" "$BADOOP";
+    elif [[ $1 == "u" ]]; then
+      shift
+      sed -i -e "/$@/s/^    //" "$BADOOP";
+    fi
   fi
 }
 
@@ -37,6 +56,12 @@ function badoop() {
   elif [[ $1 == "-d" ]]; then
     shift
     badone $@
+  elif [[ $1 == "-u" || $1 == "--unindent" ]]; then
+    shift
+    badoopindent "u" $@
+  elif [[ $1 == "-i" || $1 == "--indent" ]]; then
+    shift
+    badoopindent "i" $@
   else
     # adding a new todo
     # $@ is a string containing all parameters
